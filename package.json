@@ -1,0 +1,59 @@
+{
+  "name": "js-play",
+  "version": "0.0.1",
+  "description": "Playground for exploring JavaScript.",
+  "main": "server/main.js",
+  "config": {
+    "generatedApp": "./public/generated-app.js"
+  },
+  "scripts": {
+    "build": "browserify ./client/main.jsx -o $npm_package_config_generatedApp && echo 'Ready.'",
+    "test": "mocha --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
+    "test:watch": "mocha -w --compilers .:client/test/compiler.js `find client -name '*-test.js'`",
+    "watch": "watchify ./client/main.jsx -o $npm_package_config_generatedApp --debug --verbose",
+    "nodemon": "nodemon server/main --watch server",
+    "start": "parallelshell 'npm run watch' 'npm run nodemon'",
+    "dev": "node server/dev.js"
+  },
+  "browserify": {
+    "transform": [
+      "stringify",
+      "babelify"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxdonut/js-play"
+  },
+  "keywords": [
+    "JavaScript"
+  ],
+  "author": "foxdonut",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/foxdonut/js-play/issues"
+  },
+  "homepage": "https://github.com/foxdonut/js-play",
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
+    "jquery": "^2.1.4",
+    "lodash": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel": "^5.4.7",
+    "babel-core": "^5.4.7",
+    "babel-loader": "^5.1.3",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.3",
+    "chai": "^2.3.0",
+    "jsdom": "^3.1.2",
+    "mocha": "^2.2.5",
+    "node-libs-browser": "^0.5.2",
+    "nodemon": "^1.3.7",
+    "parallelshell": "^1.1.1",
+    "sinon": "^1.14.1",
+    "stringify": "^3.1.0",
+    "watchify": "^3.2.1"
+  }
+}
