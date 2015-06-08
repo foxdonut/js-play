@@ -7,10 +7,10 @@
     "generatedApp": "./public/generated-app.js"
   },
   "scripts": {
-    "build": "browserify ./client/main.js -o $npm_package_config_generatedApp && echo 'Ready.'",
+    "build": "browserify ./client/main.es6 -o $npm_package_config_generatedApp && echo 'Ready.'",
     "test": "mocha --compilers js:babel/register `find client -name '*-test.js'`",
     "test:watch": "mocha -w --compilers js:babel/register `find client -name '*-test.js'`",
-    "watch": "watchify ./client/main.js -o $npm_package_config_generatedApp --debug --verbose",
+    "watch": "watchify ./client/main.es6 -o $npm_package_config_generatedApp --debug --verbose",
     "nodemon": "nodemon server/main --watch server",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'"
   },
