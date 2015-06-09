@@ -1,4 +1,7 @@
-var expect = require("chai").expect;
+var chai = require("chai");
+chai.use(require("chai-as-promised"));
+var expect = chai.expect;
+
 var main = require("./main.es6");
 
 describe("es6", function() {
@@ -18,6 +21,19 @@ describe("es6", function() {
 
       // calling next() after we're already done gives undefined value.
       expect(it.next()).to.deep.equal({value: undefined, done: true});
+    });
+
+    it("works with async", function() {
+      var generator2 = main.generator2;
+
+      var it = generator2();
+      expect(it.next()).to.deep.equal({value: 4, done: false});
+      expect(it.next()).to.deep.equal({value: 2, done: false});
+
+      var last = it.next();
+      expect(last.done).to.equal(true);
+
+      return expect(last.value).to.eventually.equal("42");
     });
   });
 });
