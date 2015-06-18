@@ -28,6 +28,24 @@ var getUser = function*(id) {
 app.use(route.post("/user", saveUser));
 app.use(route.get("/user/:id", getUser));
 
+// The two functions below show the before/after middleware sequence:
+// before 1
+// before 2
+// after 2
+// after 1
+
+app.use(function*(next) {
+  console.log("before 1");
+  yield next;
+  console.log("after 1");
+});
+
+app.use(function*(next) {
+  console.log("before 2");
+  yield next;
+  console.log("after 2");
+});
+
 app.use(function*() {
   this.body = "Hello, Koa";
 });
