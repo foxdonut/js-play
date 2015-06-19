@@ -36,4 +36,24 @@ describe("es6", function() {
       return expect(last.value).to.eventually.equal("42");
     });
   });
+
+  describe("async - promises vs generators", function() {
+    it("doesn't work without async support", function(done) {
+      main.badSave(main.site0).then(function() {
+        done();
+      });
+    });
+
+    it("works with promises", function(done) {
+      main.save(main.site1).then(function() {
+        done();
+      });
+    });
+
+    it("works with generators", function(done) {
+      main.genSave(main.site2).then(function() {
+        done();
+      });
+    });
+  });
 });
