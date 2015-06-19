@@ -49,7 +49,7 @@ describe("es6", function() {
     }
 
     runTest(function(orders, diagnosis) {
-      it("doesn't work without async support", function(done) {
+      it("doesn't work without async support: " + orders + " " + diagnosis, function(done) {
         main.badSave(main.site0, orders, diagnosis).then(function() {
           done();
         })
@@ -57,7 +57,7 @@ describe("es6", function() {
     });
 
     runTest(function(orders, diagnosis) {
-      it("works with promises", function(done) {
+      it("works with promises: " + orders + " " + diagnosis, function(done) {
         main.save(main.site1, orders, diagnosis).then(function() {
           done();
         });
@@ -65,7 +65,7 @@ describe("es6", function() {
     });
 
     runTest(function(orders, diagnosis) {
-      it("works with generators", function(done) {
+      it("works with generators: " + orders + " " + diagnosis, function(done) {
         main.genSave(main.site2, orders, diagnosis).then(function() {
           done();
         });
