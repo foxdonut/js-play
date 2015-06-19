@@ -8,9 +8,11 @@
   },
   "scripts": {
     "build": "browserify ./client/main.es6 -o $npm_package_config_generatedApp && echo 'Ready.'",
-    "koa": "node --harmony kserver/app",
+    "koa": "node --harmony kserver/main",
     "test": "mocha --compilers js:babel/register `find client -name '*-test.js'`",
     "test:watch": "mocha -w --compilers js:babel/register `find client -name '*-test.js'`",
+		"ktest": "mocha --harmony-generators `find test -name '*-tests.js'`",
+		"ktest:watch": "mocha -w --harmony-generators `find test -name '*-tests.js'`",
     "watch": "watchify ./client/main.es6 -o $npm_package_config_generatedApp --debug --verbose",
     "nodemon": "nodemon server/main --watch server",
     "start": "parallelshell 'npm run watch' 'npm run nodemon'"
@@ -53,6 +55,7 @@
     "babelify": "^6.1.2",
     "browserify": "^10.2.3",
     "chai": "^2.3.0",
+    "chai-as-promised": "^5.1.0",
     "jsdom": "^3.1.2",
     "mocha": "^2.2.5",
     "node-libs-browser": "^0.5.2",
@@ -60,7 +63,7 @@
     "parallelshell": "^1.1.1",
     "sinon": "^1.14.1",
     "stringify": "^3.1.0",
-    "watchify": "^3.2.1",
-    "chai-as-promised": "^5.1.0"
+    "supertest": "^1.0.1",
+    "watchify": "^3.2.1"
   }
 }

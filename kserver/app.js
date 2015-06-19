@@ -50,8 +50,4 @@ app.use(function*() {
   this.body = "Hello, Koa";
 });
 
-var port = 3000;
-app.listen(port);
-
-console.log("The app is listening on port", port);
-
+module.exports = app;
