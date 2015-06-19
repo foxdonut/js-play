@@ -1,0 +1,16 @@
+
+Problems with badSave
+
+- doesn't wait for saving orders to finish before saving diagnosis
+
+Problems with save
+
+- works, but using promises means having to create fake/empty promises when
+  we don't need to save
+
+Nice things about generators
+
+- can write one function call after another even if async
+- can call yield, or not, which solves the fake/empty promise problem.
+
+

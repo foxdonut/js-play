@@ -1,0 +1,6 @@
+
+- Calling save(site) should save orders, diagnosis, both, or neither
+- Depends on their presence, any of the 4 combinations could happen
+- If saving both, must save orders FIRST, and save diagnosis SECOND
+- Save diagnosis MUST WAIT for save orders to FINISH.
+
