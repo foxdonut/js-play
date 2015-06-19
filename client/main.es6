@@ -26,56 +26,52 @@ var Q = require("q");
 ////////////////////////////////////////
 
 var badSaveOrderResults = function(site) {
-  // console.log(">>> save order results");
   setTimeout(function() {
     console.log("1--- done saving order results");
-  }, 500);
-  // console.log("<<< returning from save order results");
+  }, 200);
 };
 
 var badSaveOrders = function(site) {
-  // console.log(">> save orders");
   if (site.orders) {
-    // console.log(">> need to save order results");
     badSaveOrderResults(site);
   }
   else {
-    // console.log("don't need to save order results");
+    console.log("don't need to save order results");
   }
   console.log("returning from save orders");
 };
 
-var badSave = function(site) {
-  // console.log("> save");
+var badSave = function(site, orders, diagnosis) {
+  console.log("running badSave:", orders, diagnosis);
   var dfd = Q.defer();
   var promise = dfd.promise;
+
+  site.orders = orders;
+  site.diagnosis = diagnosis ? site.diagnosisFn : false;
 
   badSaveOrders(site);
 
   if (site.diagnosis) {
     console.log("2--- need to save diagnosis");
     site.diagnosis.$save().then(function() {
-      // console.log("done saving diagnosis");
       dfd.resolve();
     });
   }
   else {
-    // console.log("don't need to save diagnosis");
+    console.log("don't need to save diagnosis");
     dfd.resolve();
   }
 
-  // console.log("< returning from save");
   return promise;
 };
 
 var site0 = {
-  orders: true,
-  diagnosis: {
+  diagnosisFn: {
     $save: function() {
       var dfd = Q.defer();
       setTimeout(function() {
         dfd.resolve();
-      }, 500);
+      }, 200);
       return dfd.promise;
     }
   }
@@ -84,26 +80,22 @@ var site0 = {
 ////////////////////////////////////////
 
 var saveOrderResults = function(site) {
-  // console.log(">>> save order results");
   var dfd = Q.defer();
   setTimeout(function() {
     console.log("1--- done saving order results");
     dfd.resolve();
-  }, 500);
-  // console.log("<<< returning from save order results");
+  }, 200);
   return dfd.promise;
 };
 
 var saveOrders = function(site) {
-  // console.log(">> save orders");
   var promise = null;
 
   if (site.orders) {
-    // console.log(">> need to save order results");
     promise = saveOrderResults(site);
   }
   else {
-    // console.log("don't need to save order results");
+    console.log("don't need to save order results");
     var dfd = Q.defer();
     promise = dfd.promise;
     dfd.resolve();
@@ -112,37 +104,37 @@ var saveOrders = function(site) {
   return promise;
 };
 
-var save = function(site) {
-  // console.log("> save");
+var save = function(site, orders, diagnosis) {
+  console.log("running save:", orders, diagnosis);
   var dfd = Q.defer();
   var promise = dfd.promise;
+
+  site.orders = orders;
+  site.diagnosis = diagnosis ? site.diagnosisFn : false;
 
   saveOrders(site).then(function() {
     if (site.diagnosis) {
       console.log("2--- need to save diagnosis");
       site.diagnosis.$save().then(function() {
-        // console.log("done saving diagnosis");
         dfd.resolve();
       });
     }
     else {
-      // console.log("don't need to save diagnosis");
+      console.log("don't need to save diagnosis");
       dfd.resolve();
     }
   });
 
-  // console.log("< returning from save");
   return promise;
 };
 
 var site1 = {
-  orders: true,
-  diagnosis: {
+  diagnosisFn: {
     $save: function() {
       var dfd = Q.defer();
       setTimeout(function() {
         dfd.resolve();
-      }, 500);
+      }, 200);
       return dfd.promise;
     }
   }
@@ -153,51 +145,48 @@ var site1 = {
 var co = require("co");
 
 var genSaveOrderResults = function(site) {
-  // console.log(">>> save order results");
   return new Promise(function(resolve) {
     setTimeout(function() {
       console.log("1--- done saving order results");
       resolve();
-    }, 500);
+    }, 200);
   });
 };
 
 var genSaveOrders = function*(site) {
-  // console.log(">> save orders");
-
   if (site.orders) {
-    // console.log(">> need to save order results");
     yield genSaveOrderResults(site);
   }
   else {
-    // console.log("don't need to save order results");
+    console.log("don't need to save order results");
   }
   console.log("returning from save orders");
 };
 
-var genSave = function*(site) {
-  // console.log("> save");
+var genSave = function*(site, orders, diagnosis) {
+  console.log("running genSave:", orders, diagnosis);
+
+  site.orders = orders;
+  site.diagnosis = diagnosis ? site.diagnosisFn : false;
+
   yield genSaveOrders(site);
 
   if (site.diagnosis) {
     console.log("2--- need to save diagnosis");
     yield site.diagnosis.$save();
-    // console.log("done saving diagnosis");
   }
   else {
-    // console.log("don't need to save diagnosis");
+    console.log("don't need to save diagnosis");
   }
-  // console.log("< returning from save");
 };
 
 var site2 = {
-  orders: true,
-  diagnosis: {
+  diagnosisFn: {
     $save: function() {
       return new Promise(function(resolve) {
         setTimeout(function() {
           resolve();
-        }, 500);
+        }, 200);
       });
     }
   }

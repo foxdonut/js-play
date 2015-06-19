@@ -2,6 +2,8 @@ var chai = require("chai");
 chai.use(require("chai-as-promised"));
 var expect = chai.expect;
 
+var _ = require("lodash");
+
 var main = require("./main.es6");
 
 describe("es6", function() {
@@ -38,21 +40,35 @@ describe("es6", function() {
   });
 
   describe("async - promises vs generators", function() {
-    it("doesn't work without async support", function(done) {
-      main.badSave(main.site0).then(function() {
-        done();
+    var combinations = [[false, false], [false, true], [true, false], [true, true]];
+
+    var runTest = function(testFn) {
+      _.each(combinations, function(combination) {
+        testFn(combination[0], combination[1])
+      });
+    }
+
+    runTest(function(orders, diagnosis) {
+      it("doesn't work without async support", function(done) {
+        main.badSave(main.site0, orders, diagnosis).then(function() {
+          done();
+        })
       });
     });
 
-    it("works with promises", function(done) {
-      main.save(main.site1).then(function() {
-        done();
+    runTest(function(orders, diagnosis) {
+      it("works with promises", function(done) {
+        main.save(main.site1, orders, diagnosis).then(function() {
+          done();
+        });
       });
     });
 
-    it("works with generators", function(done) {
-      main.genSave(main.site2).then(function() {
-        done();
+    runTest(function(orders, diagnosis) {
+      it("works with generators", function(done) {
+        main.genSave(main.site2, orders, diagnosis).then(function() {
+          done();
+        });
       });
     });
   });
