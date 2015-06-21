@@ -136,9 +136,9 @@ var site1 = {
 
 var co = require("co");
 
-var genSaveOrderResults = function(site) {
-  return new Promise(function(resolve) {
-    setTimeout(function() {
+var genSaveOrderResults = (site) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
       console.log("1--- done saving order results");
       resolve();
     }, 200);
@@ -174,9 +174,9 @@ var genSave = function*(site, orders, diagnosis) {
 
 var site2 = {
   diagnosisFn: {
-    $save: function() {
-      return new Promise(function(resolve) {
-        setTimeout(function() {
+    $save: () => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
           resolve();
         }, 200);
       });
