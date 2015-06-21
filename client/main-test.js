@@ -3,10 +3,25 @@ chai.use(require("chai-as-promised"));
 var expect = chai.expect;
 
 var _ = require("lodash");
+var radio = require("radio");
 
 var main = require("./main.es6");
 
 describe("es6", function() {
+  describe("ES5 functions vs ES6 arrow functions", function() {
+    it("regular function needs var self = this", function() {
+      var regFunc = new main.regularFunction();
+      radio("regularAddNumbers").broadcast();
+      expect(regFunc.result).to.equal(19);
+    });
+    
+    it("arrow function doesn't need var self = this", function() {
+      var arrowFunc = new main.arrowFunction();
+      radio("arrowAddNumbers").broadcast();
+      expect(arrowFunc.result).to.equal(19);
+    });
+  });
+
   describe("generators", function() {
     it("yields and resumes", function() {
       var generator1 = main.generator1;
@@ -44,15 +59,15 @@ describe("es6", function() {
 
     var runTest = function(testFn) {
       _.each(combinations, function(combination) {
-        testFn(combination[0], combination[1])
+        testFn(combination[0], combination[1]);
       });
-    }
+    };
 
     runTest(function(orders, diagnosis) {
       it("doesn't work without async support: " + orders + " " + diagnosis, function(done) {
         main.badSave(main.site0, orders, diagnosis).then(function() {
           done();
-        })
+        });
       });
     });
 

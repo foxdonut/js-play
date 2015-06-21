@@ -1,4 +1,24 @@
 /* jshint esnext: true */
+var _ = require("lodash");
+var radio = require("radio");
+
+var regularFunction = function() {
+  this.numbers = [1, 2, 3, 5, 8];
+  var self = this;
+
+  radio("regularAddNumbers").subscribe(function() {
+    self.result = _.sum(self.numbers);
+  });
+};
+
+var arrowFunction = function() {
+  this.numbers = [1, 2, 3, 5, 8];
+
+  radio("arrowAddNumbers").subscribe(() => {
+    this.result = _.sum(this.numbers);
+  });
+};
+
 var generator1 = function*(x) {
   var y = 2 * (yield (x + 1));
   var z = yield (y / 3);
@@ -187,6 +207,8 @@ var site2 = {
 ////////////////////////////////////////
 
 module.exports = {
+  regularFunction: regularFunction,
+  arrowFunction: arrowFunction,
   generator1: generator1,
   generator2: generator2,
   badSave: badSave,
