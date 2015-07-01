@@ -13,3 +13,13 @@ describe("Simple user HTTP CRUD API", function() {
       .expect(201, done);
   });
 });
+
+describe("Simple HTML application", function() {
+  it("shows the home page", function(done) {
+    request
+      .get("/")
+      .expect(200)
+      .expect("Content-Type", /html/)
+      .end(done);
+  });
+});

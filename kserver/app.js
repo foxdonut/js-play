@@ -3,6 +3,7 @@ var app = koa();
 
 var route = require("koa-route");
 var parse = require("co-body");
+var render = require("../lib/render");
 
 var monk = require("monk");
 var wrap = require("co-monk");
@@ -34,6 +35,7 @@ app.use(route.get("/user/:id", getUser));
 // after 2
 // after 1
 
+/*
 app.use(function*(next) {
   console.log("before 1");
   yield next;
@@ -45,9 +47,10 @@ app.use(function*(next) {
   yield next;
   console.log("after 2");
 });
+*/
 
-app.use(function*() {
-  this.body = "Hello, Koa";
-});
+app.use(route.get("/", function*() {
+  this.body = yield render("home");
+}));
 
 module.exports = app;
