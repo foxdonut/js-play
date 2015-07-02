@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Koa HTML</title>
-  </head>
-  <body>
-    <h1>Koa HTML</h1>
-  </body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}Koa Vote{% endblock %}
+
+{% block content %}
+  <h1>Current polls</h1>
+  <p>Will be listed here.</p>
+{% endblock %}
