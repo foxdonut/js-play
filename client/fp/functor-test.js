@@ -18,8 +18,12 @@ describe("Functor Exercises", function(){
     assert.deepEqual(E.ex3(user), support.Maybe.of("A"));
   });
 
-  it("Exercise 4", function(){
+  it("Exercise 4a", function(){
     assert.deepEqual(E.ex4("4"), support.Maybe.of(4));
+  });
+
+  it("Exercise 4b", function(){
+    assert.equal(support.inspect(E.ex4("a")), "Nothing");
   });
 
   it("Exercise 5", function(done){

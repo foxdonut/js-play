@@ -42,9 +42,11 @@ module.exports.toLowerCase = function(x) {
   return x.toLowerCase();
 };
 
-module.exports.inspect = function(x) {
+var inspect = function(x) {
   return (x && x.inspect) ? x.inspect() : x;
 };
+
+module.exports.inspect = inspect;
 
 // Identity
 var Identity = function(x) {
@@ -58,7 +60,7 @@ Identity.prototype.map = function(f) {
 };
 
 Identity.prototype.inspect = function() {
-  return 'Identity('+inspect(this.__value)+')';
+  return "Identity("+inspect(this.__value)+")";
 };
 
 module.exports.Identity = Identity;
@@ -85,7 +87,7 @@ Maybe.prototype.join = function() {
 };
 
 Maybe.prototype.inspect = function() {
-  return 'Maybe('+inspect(this.__value)+')';
+  return this.isNothing() ? "Nothing" : "Maybe("+inspect(this.__value)+")";
 };
 
 module.exports.Maybe = Maybe;
@@ -109,7 +111,7 @@ Left.prototype.map = function(f) { return this; };
 Left.prototype.join = function() { return this; };
 Left.prototype.chain = function() { return this; };
 Left.prototype.inspect = function() {
-  return 'Left('+inspect(this.__value)+')';
+  return "Left("+inspect(this.__value)+")";
 };
 
 
@@ -134,7 +136,7 @@ Right.prototype.chain = function(f) {
 };
 
 Right.prototype.inspect = function() {
-  return 'Right('+inspect(this.__value)+')';
+  return "Right("+inspect(this.__value)+")";
 };
 
 module.exports.Either = Either;
@@ -161,7 +163,7 @@ IO.prototype.join = function() {
 };
 
 IO.prototype.inspect = function() {
-  return 'IO('+inspect(this.unsafePerformIO)+')';
+  return "IO("+inspect(this.unsafePerformIO)+")";
 };
 module.exports.IO = IO;
 
