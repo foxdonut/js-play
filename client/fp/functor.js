@@ -40,13 +40,13 @@ var ex4 = function (n) {
   if (n) { return parseInt(n, 10); }
 };
 
-ex4 = _.compose(support.Maybe.of, _.flip(parseInt)(10));
+ex4 = _.compose(support.Maybe.of, _.ifElse(_.curry(isNaN), _.always(undefined), _.identity), _.flip(parseInt)(10));
 
 
 
 // Exercise 5
 // ==========
-// Write a function that will getPost then _.toUpper the post"s title
+// Write a function that will getPost then _.toUpper the post's title
 
 // getPost :: Int -> Future({id: Int, title: String})
 var getPost = function (i) {
