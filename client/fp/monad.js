@@ -4,7 +4,7 @@ var _ = require("ramda");
 
 // Exercise 1
 // ==========
-// Use safeProp and map/join or chain to safetly get the street name when given a user
+// Use safeProp and map/join or chain to safely get the street name when given a user
 
 var safeProp = _.curry(function (x, o) { return support.Maybe.of(o[x]); });
 var user = {

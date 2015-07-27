@@ -54,6 +54,7 @@
     "monk": "^1.0.1",
     "radio": "^0.2.0",
     "ramda": "^0.17.1",
+    "sanctuary": "^0.6.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {
