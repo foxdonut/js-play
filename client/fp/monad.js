@@ -87,11 +87,11 @@ function emailBlast(list) {
 
 //  validateEmail :: Email -> Either String Email
 var validateEmail = function(x){
-  return x.match(/\S+@\S+\.\S+/) ? (new Right(x)) : (new Left("invalid email"));
+  return x.match(/\S+@\S+\.\S+/) ? (new support.Right(x)) : (new support.Left("invalid email"));
 };
 
 //  ex4 :: Email -> Either String (IO String)
-var ex4 = undefined;
+var ex4 = _.pipe(validateEmail, _.map(addToMailingList), _.map(emailBlast));
 
 
 module.exports = {ex1: ex1, ex2: ex2, ex3: ex3, ex4: ex4, user: user};
