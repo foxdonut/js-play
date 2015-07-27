@@ -45,8 +45,8 @@ describe("Functor Exercises", function(){
   });
 
   it("Exercise 8", function(){
-    assert.deepEqual(E.ex8("fpguy99").support.unsafePerformIO(), "fpguy99-saved");
-    assert.deepEqual(E.ex8("...").support.unsafePerformIO(), "You need > 3");
+    assert.deepEqual(E.ex8("fpguy99").unsafePerformIO(), "fpguy99-saved");
+    assert.deepEqual(E.ex8("...").unsafePerformIO(), "You need > 3");
   });
 });
 
