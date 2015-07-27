@@ -8,6 +8,9 @@ var _ = require("ramda");
 
 // _.add(1): x -> x
 // _.map actually calls Identity's map function
+// "map is not about iterating, nor is it about []; it is about going inside of an object
+// or container, or data structure, and running a function within, according to its properties
+// or behaviour.
 var ex1 = _.map(_.add(1));
 
 
@@ -57,7 +60,7 @@ var getPost = function (i) {
   });
 };
 
-var ex5 = undefined;
+var ex5 = _.compose(_.map(_.toUpper), _.map(_.prop("title")), getPost);
 
 
 
@@ -71,7 +74,7 @@ var checkActive = function(user) {
   return user.active ? support.Right.of(user) : support.Left.of("Your account is not active");
 };
 
-var ex6 = undefined;
+var ex6 = _.compose(_.map(showWelcome), checkActive);
 
 
 
@@ -80,23 +83,23 @@ var ex6 = undefined;
 // Write a validation function that checks for a length > 3. It should return Right(x) if it is greater than 3 and Left("You need > 3") otherwise
 
 var ex7 = function(x) {
-  return undefined; // <--- write me. (don"t be pointfree)
+  return x.length > 3 ? support.Right.of(x) : support.Left.of("You need > 3"); // <--- write me. (don't be pointfree)
 };
 
 
 
 // Exercise 8
 // ==========
-// Use ex7 above and Either as a functor to save the user if they are valid or return the error message string. Remember either"s two arguments must return the same type.
+// Use ex7 above and Either as a functor to save the user if they are valid or return the error message string. Remember either's two arguments must return the same type.
 
 var save = function(x) {
-  return new IO(function() {
+  return new support.IO(function() {
     console.log("SAVED USER!");
     return x + "-saved";
   });
 };
 
-var ex8 = undefined;
+var ex8 = _.compose(_.map(save), ex7);
 
 module.exports = {ex1: ex1, ex2: ex2, ex3: ex3, ex4: ex4, ex5: ex5, ex6: ex6, ex7: ex7, ex8: ex8};
 

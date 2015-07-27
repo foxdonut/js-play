@@ -23,7 +23,7 @@ var ex1 = undefined;
 
 // Exercise 2
 // ==========
-// Use getFile to get the filename, remove the directory so it"s just the file, then purely log it.
+// Use getFile to get the filename, remove the directory so it's just the file, then purely log it.
 
 var getFile = function() {
   return new IO(function(){ return __filename; });
@@ -42,7 +42,7 @@ var ex2 = undefined;
 
 // Exercise 3
 // ==========
-// Use getPost() then pass the post"s id to getComments().
+// Use getPost() then pass the post's id to getComments().
 
 var getPost = function(i) {
   return new Task(function (rej, res) {
@@ -65,7 +65,7 @@ var ex3 = undefined;
 
 // Exercise 4
 // ==========
-// Use validateEmail, addToMailingList and emailBlast to implmeent ex4"s type signature.
+// Use validateEmail, addToMailingList and emailBlast to implmeent ex4's type signature.
 // It should safely add a new subscriber to the list, then email everyone with this happy news.
 
 //  addToMailingList :: Email -> IO [Email]
