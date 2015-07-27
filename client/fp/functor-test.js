@@ -23,7 +23,8 @@ describe("Functor Exercises", function(){
   });
 
   it("Exercise 4b", function(){
-    assert.equal(support.inspect(E.ex4("a")), "Nothing");
+    //assert.equal(support.inspect(E.ex4("a")), "Nothing");
+    assert.equal(support.inspect(E.ex4(null)), "Nothing");
   });
 
   it("Exercise 5", function(done){

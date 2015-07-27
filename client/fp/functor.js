@@ -43,7 +43,8 @@ var ex4 = function (n) {
   if (n) { return parseInt(n, 10); }
 };
 
-ex4 = _.compose(support.Maybe.of, _.ifElse(_.curry(isNaN), _.always(undefined), _.identity), _.flip(parseInt)(10));
+//ex4 = _.compose(support.Maybe.of, _.ifElse(_.curry(isNaN), _.always(undefined), _.identity), _.flip(parseInt)(10));
+ex4 = _.compose(_.map(_.flip(parseInt)(10)), support.Maybe.of);
 
 
 
