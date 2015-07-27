@@ -6,11 +6,11 @@ var _ = require("ramda");
 describe("Monad Exercises", function(){
 
   it("Exercise 1", function(){
-    assert.deepEqual(E.ex1(E.user), Maybe.of("Walnut St"));
+    assert.deepEqual(E.ex1(E.user), support.Maybe.of("Walnut St"));
   });
 
   it("Exercise 2", function(){
-    assert.equal(E.ex2(undefined).unsafePerformIO(), "logged monad_exercises.js");
+    assert.equal(E.ex2(undefined).unsafePerformIO(), "logged monad.js");
   });
 
   it("Exercise 3", function(done){

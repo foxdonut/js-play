@@ -4,7 +4,7 @@ var _ = require("ramda");
 
 // Exercise 1
 // ==========
-// Use safeProp and map/join or chain to safely get the street name when given a user
+// Use safeProp and map/join or chain to safely get the street name for given a user
 
 var safeProp = _.curry(function (x, o) { return support.Maybe.of(o[x]); });
 var user = {
@@ -18,7 +18,7 @@ var user = {
   }
 };
 
-var ex1 = undefined;
+var ex1 = _.compose(support.chain(safeProp("name")), support.chain(safeProp("street")), safeProp("address"));
 
 
 // Exercise 2
@@ -26,17 +26,17 @@ var ex1 = undefined;
 // Use getFile to get the filename, remove the directory so it's just the file, then purely log it.
 
 var getFile = function() {
-  return new IO(function(){ return __filename; });
+  return new support.IO(function(){ return __filename; });
 };
 
 var pureLog = function(x) {
-  return new IO(function(){
+  return new support.IO(function(){
     console.log(x);
     return "logged " + x; // for testing w/o mocks
   });
 };
 
-var ex2 = undefined;
+var ex2 = _.compose(support.chain(pureLog), _.map(_.compose(_.last, _.split("/"))), getFile);
 
 
 
@@ -60,18 +60,18 @@ var getComments = function(i) {
   });
   };
 
-var ex3 = undefined;
+var ex3 = _.compose(support.join, _.map(getComments), _.map(_.prop("id")), getPost);
 
 
 // Exercise 4
 // ==========
-// Use validateEmail, addToMailingList and emailBlast to implmeent ex4's type signature.
+// Use validateEmail, addToMailingList and emailBlast to implement ex4's type signature.
 // It should safely add a new subscriber to the list, then email everyone with this happy news.
 
 //  addToMailingList :: Email -> IO [Email]
 var addToMailingList = (function(list){
   return function(email) {
-    return new IO(function(){
+    return new support.IO(function(){
       list.push(email);
       return list;
     });
@@ -80,7 +80,7 @@ var addToMailingList = (function(list){
 
 //       emailBlast :: [Email] -> IO String
 function emailBlast(list) {
-  return new IO(function(){
+  return new support.IO(function(){
     return "emailed: " + list.join(","); // for testing w/o mocks
   });
 }
