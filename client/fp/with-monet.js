@@ -9,17 +9,16 @@ var log = function(x) {
 };
 
 // String -> IO DOM
-// var getDOM = M.IO(function(sel) { return $(sel); });
+// var getDOM = function(sel) { return M.IO(function() { return $(sel); }); };
 var getDOM = $.io1();
 
 // DOM -> EventStream DomEvent
 var listen = R.pipe(R.flip, R.curry)(B.fromEvent);
-
 var keyStream = listen("keyup");
 
-var logEvent = R.pipe(R.prop("target"), R.prop("value"), log);
+var getValue = R.path(["target", "value"]);
 
 var app = R.pipe(getDOM, R.map(keyStream));
 
-app("#search").run().onValue(log);
+app("#search").run().onValue(R.pipe(getValue, log));
 
