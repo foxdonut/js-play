@@ -1,16 +1,25 @@
 var R = require("ramda");
 var M = require("monet");
 var $ = require("jquery");
-var Bacon = require("baconjs");
+var B = require("baconjs");
 
 var log = function(x) {
   console.log(x);
   return x; 
 };
 
-var getDom = M.IO($);
+// String -> IO DOM
+// var getDOM = M.IO(function(sel) { return $(sel); });
+var getDOM = $.io1();
 
-var listen = R.curry(R.flip(Bacon.fromEvent));
+// DOM -> EventStream DomEvent
+var listen = R.pipe(R.flip, R.curry)(B.fromEvent);
+
 var keyStream = listen("keyup");
 
-var app = R.pipe(getDom);
+var logEvent = R.pipe(R.prop("target"), R.prop("value"), log);
+
+var app = R.pipe(getDOM, R.map(keyStream));
+
+app("#search").run().onValue(log);
+

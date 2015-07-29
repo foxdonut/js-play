@@ -8,14 +8,17 @@
   },
   "scripts": {
     "build": "browserify ./client/main.es6 -o $npm_package_config_generatedApp && echo 'Ready.'",
+    "build:monet": "browserify ./client/fp/with-monet.js -o ./public/generated-with-monet.js && echo 'Ready.'",
     "koa": "node --harmony kserver/main",
     "test": "mocha --compilers js:babel/register `find client -name '*-test.js'`",
     "test:watch": "mocha -w --compilers js:babel/register `find client -name '*-test.js'`",
     "ktest": "mocha --harmony-generators `find test -name '*-tests.js'`",
     "ktest:watch": "mocha -w --harmony-generators `find test -name '*-tests.js'`",
     "watch": "watchify ./client/main.es6 -o $npm_package_config_generatedApp --debug --verbose",
+    "watch:monet": "watchify ./client/fp/with-monet.js -o ./public/generated-with-monet.js --debug --verbose",
     "nodemon": "nodemon server/main --watch server",
-    "start": "parallelshell 'npm run watch' 'npm run nodemon'"
+    "start": "parallelshell 'npm run watch' 'npm run nodemon'",
+    "start:monet": "parallelshell 'npm run watch:monet' 'python -m SimpleHTTPServer'"
   },
   "browserify": {
     "transform": [
